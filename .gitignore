@@ -1,0 +1,27 @@
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+**/.venv/
+**/venv/
+**/env/
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+**/*__pycache__*
+
+# Testing & Coverage
+.pytest_cache/
+**/.pytest_cache/
+.coverage
+**/.coverage
+htmlcov/
+*.coverage.*
+
+# OS generated files
+.DS_Store
+**/.DS_Store
+Thumbs.db
