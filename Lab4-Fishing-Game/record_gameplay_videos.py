@@ -10,7 +10,7 @@ import imageio
 import pygame
 import numpy as np
 
-VIDEOS_DIR = os.path.join(os.path.dirname(__file__), "fishing", "videos")
+VIDEOS_DIR = os.path.join(os.path.dirname(__file__), "videos")
 os.makedirs(VIDEOS_DIR, exist_ok=True)
 
 
@@ -143,7 +143,7 @@ def record_after_video():
     """Records 10 seconds of the fixed feature-complete game."""
     print("Recording 'After' video (showing fixed features)...")
     import sys
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "fishing"))
+    sys.path.insert(0, os.path.dirname(__file__))
     from game.game_engine import GameEngine
     from game.hook import HookState
 

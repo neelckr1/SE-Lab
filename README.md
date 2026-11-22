@@ -1,131 +1,119 @@
-# UE24CS351A: Software Engineering Laboratory
+# PESU – Software Engineering Labs
 
-**PES University — Department of Computer Science & Engineering**  
-**Academic Year:** 2026–2027 (5th Semester)  
+This repository contains my Software Engineering laboratory assignments completed as part of the Computer Science and Engineering curriculum at PES University.
+
 **Student Name:** Neel Chandrakar  
 **SRN:** `PES2UG24CS310`  
 **Section:** Section F  
-
-This repository consolidates all laboratory assignments, practical implementations, test suites, static code analysis reports, and official submission documents for the **Software Engineering Lab (UE24CS351A)**.
-
----
-
-## 🗂️ Laboratory Directory & Index
-
-| Directory | Topic / Assignment | Original Repo | Key Metrics Achieved | Submission Report |
-| :--- | :--- | :--- | :---: | :---: |
-| [`Lab_3/`](./Lab_3) | Software Architecture & System Design Analysis | — | Complete Architecture Review | [Lab 3 PDF](./Lab_3/PES2UG24CS310_Lab_3.pdf) |
-| [`Lab_5/`](./Lab_5) | Static Code Analysis & Security Hardening (`energy_system.py`) | [`L5_03_energy_tariff`](https://github.com/neelckr1/L5_03_energy_tariff) | **Pylint: 10.00/10**<br/>Bandit: 0 vulns<br/>Flake8: 0 issues | [Lab 5 PDF](./Lab_5/PES2UG24CS310_Lab_5.pdf) |
-| [`Lab_6/`](./Lab_6) | Code & Branch Coverage Analysis (`coffee_shop_order.py`) | [`L6_L7_03_coffee_shop_order`](https://github.com/neelckr1/L6_L7_03_coffee_shop_order) | **100% Line Coverage**<br/>**100% Branch Coverage** (38/38) | [Lab 6 PDF](./Lab_6/PES2UG24CS310_Lab_6.pdf) |
-| [`Lab_7/`](./Lab_7) | Fuzzing for Input Validation Bugs (`processor.py`) | [`L6_L7_03_coffee_shop_order`](https://github.com/neelckr1/L6_L7_03_coffee_shop_order) | **Hypothesis Fuzzing: 100% Passed**<br/>0 Crashes / Exceptions | [Lab 7 PDF](./Lab_7/PES2UG24CS310_Lab_7.pdf) |
-| [`vibe_coding/`](./vibe_coding) | Automated Game Engine & End-to-End Testing | [`vibe_coding`](https://github.com/neelckr1/vibe_coding) | 100% Unit + E2E Tests Passing | [Vibe Coding README](./vibe_coding/README.md) |
+**Semester:** 5th Semester  
+**Course Code:** UE24CS351A  
+**Assigned Scenario:** Scenario 03 (Campus Placement Pipeline / Energy Tariff / Coffee Shop Order)  
 
 ---
 
-## 📘 Detailed Lab Summaries
+## Repository Structure
 
-### 1. [Lab 3: Architecture & System Design](./Lab_3)
-* **Objective:** Comprehensive software architecture modeling, evaluating component coupling, cohesion, and structural patterns.
-* **Key Deliverable:** [`Lab_3/PES2UG24CS310_Lab_3.pdf`](./Lab_3/PES2UG24CS310_Lab_3.pdf) along with the course student handout.
-
----
-
-### 2. [Lab 5: Static Code Analysis & Remediation (`energy_system.py`)](./Lab_5)
-* **Objective:** Detect and resolve code quality smells, architectural antipatterns, and security vulnerabilities using **Pylint**, **Bandit**, and **Flake8**.
-* **Key Fixes & Improvements:**
-  * **Bandit (CWE-78 / B307):** Replaced dangerous arbitrary `eval()` call with safe numeric AST parsing.
-  * **Mutable Default Arguments:** Fixed `history=[]` leakage by adopting the `None` sentinel pattern.
-  * **Exception Handling:** Replaced bare `except:` clauses with specific exception tuples (`FileNotFoundError`, `json.JSONDecodeError`, `OSError`).
-  * **Resource Management:** Ensured all file operations utilize context managers (`with open(...)`).
-  * **PEP 8 Compliance:** Formatted line lengths, imports, and docstrings.
-* **Verification Metrics:**
-  * **Pylint:** Rated **`10.00 / 10.00`** (baseline was 6.14/10).
-  * **Bandit:** **0 Security Vulnerabilities** across 151 LOC.
-  * **Flake8:** **0 PEP 8 violations** (clean exit code 0).
-* **Execution:**
-  ```bash
-  cd Lab_5/L5_03_energy_tariff
-  pylint energy_system.py
-  bandit -r energy_system.py
-  flake8 energy_system.py
-  ```
+| Lab | Project / Scenario | Description | Directory Link |
+|:---|:---|:---|:---|
+| **Lab 1** | Campus Placement & Internship Pipeline | Requirements specification (SRS), UML use case modeling, and actor interaction flows | [`Lab1-L2-Campus-Placement-Pipeline/`](./Lab1-L2-Campus-Placement-Pipeline) |
+| **Lab 2** | Campus Placement & Internship Pipeline | Agile product backlog creation, user story management, Fibonacci story pointing, sprint planning, and sprint simulation in Jira | [`Lab1-L2-Campus-Placement-Pipeline/`](./Lab1-L2-Campus-Placement-Pipeline) |
+| **Lab 3** | Campus Placement Architecture | Component modeling, architectural trade-off analysis, and layered architecture pattern selection | [`Lab3-Campus-Placement-Architecture/`](./Lab3-Campus-Placement-Architecture) |
+| **Lab 4** | Fishing Game | 2D Pygame simulation, collision bug remediation, feature development (scoring, timed rounds, player casting), and automated E2E testing | [`Lab4-Fishing-Game/`](./Lab4-Fishing-Game) |
+| **Lab 5** | Energy Tariff Calculator | Static code analysis and security auditing using Pylint (10.00/10), Bandit (0 vulns), and Flake8 (0 issues) | [`Lab5-Energy-Tariff/`](./Lab5-Energy-Tariff) |
+| **Lab 6** | Coffee Shop Order System | Statement and branch coverage analysis using Coverage.py and Pytest, achieving 100% line and 100% branch coverage | [`Lab6-L7-Coffee-Shop-Order/LAB6/`](./Lab6-L7-Coffee-Shop-Order/LAB6) |
+| **Lab 7** | Coffee Shop Order System (Processor) | Property-based fuzz testing using Hypothesis to expose input validation defects, followed by defensive code hardening | [`Lab6-L7-Coffee-Shop-Order/LAB7/`](./Lab6-L7-Coffee-Shop-Order/LAB7) |
 
 ---
 
-### 3. [Lab 6: Code and Branch Coverage Analysis (`coffee_shop_order.py`)](./Lab_6)
-* **Objective:** Measure and maximize statement and branch coverage using Python's `coverage.py` and `pytest`.
-* **Application Overview:** Validates coffee orders by size, customizations (syrups, allergy safeguards), applies membership discounts, flags audits, and monitors espresso machine temperature overheat cycles.
-* **Test Suites:**
-  * [`CodeCoverageTest_coffee_shop_order.py`](./Lab_6/L6_L7_03_coffee_shop_order/Lab%206/CodeCoverageTest_coffee_shop_order.py): 15 tests verifying all execution paths.
-  * [`BranchCoverageTest_coffee_shop_order.py`](./Lab_6/L6_L7_03_coffee_shop_order/Lab%206/BranchCoverageTest_coffee_shop_order.py): 20 tests evaluating all true/false decision outcomes, syrup price cap boundaries, and overheat streak resets.
-* **Coverage Results:**
-  * **Line Coverage:** **100%** (54/54 statements, 0 missed).
-  * **Branch Coverage:** **100%** (38/38 branches evaluated, 0 partial/missed).
-* **Deliverables:** High-resolution terminal screenshots ([Code Coverage](./Lab_6/L6_L7_03_coffee_shop_order/Lab%206/code_coverage_report.png), [Branch Coverage](./Lab_6/L6_L7_03_coffee_shop_order/Lab%206/branch_coverage_report.png)) and report PDF ([`PES2UG24CS310_Lab_6.pdf`](./Lab_6/PES2UG24CS310_Lab_6.pdf)).
-* **Execution:**
-  ```bash
-  cd "Lab_6/L6_L7_03_coffee_shop_order/Lab 6"
-  coverage run -m pytest CodeCoverageTest_coffee_shop_order.py
-  coverage run --branch -m pytest BranchCoverageTest_coffee_shop_order.py
-  coverage report -m
-  ```
+## Tools and Technologies
+
+- **Programming Language:** Python 3
+- **Version Control:** Git & GitHub
+- **Testing & Fuzzing Frameworks:** Pytest, Coverage.py, Hypothesis
+- **Static Code Analysis & Security:** Pylint, Bandit, Flake8
+- **Game Engine & Media:** Pygame, ImageIO, Pillow
+- **Project Management:** Jira Software (Scrum, Epics, Sprints, Burndown Charts)
+- **Modeling & Architecture:** UML Use Case & Component Diagrams (draw.io / Layered Architecture)
+- **Document Generation:** ReportLab (automated PDF submission generation)
 
 ---
 
-### 4. [Lab 7: Fuzzing for Input Validation Bugs (`processor.py`)](./Lab_7)
-* **Objective:** Explore fuzz testing as a dynamic testing, security, and quality assurance technique using Python's **Hypothesis** property-based fuzzing framework to uncover and remediate unhandled exceptions and crashes in `processor.py`.
-* **Application Overview:** An order processing component handling drink code prefix lookup, average espresso shot cost calculation from CSV strings, and semicolon-delimited key:value order modifier specifications.
-* **Vulnerabilities Discovered via Hypothesis:**
-  * **`lookup_drink_code`**: `AttributeError` when given `None`, `KeyError` when given empty string `""` or unrecognized codes, and casing defect where `'MOc'` existed in dictionary while input was normalized to `'MOC'` (triggering `KeyError: 'MOC'`).
-  * **`calculate_average_shot_cost`**: `AttributeError` on `None`, `ValueError` attempting `float()` conversion on non-numeric or empty string tokens, and `ZeroDivisionError` when the price list contains no valid numbers.
-  * **`parse_order_modifiers`**: `AttributeError` on `None`, `ValueError` unpack failure (`expected 2, got 1`) on tokens missing `:` (e.g. empty strings or raw labels), and `ValueError` (`expected 2, got 3`) on tokens with multiple colons.
-* **Defensive Hardening Implemented:**
-  * Type guards checking `isinstance(s, str)` across all endpoints with neutral fallbacks (`None`, `0.0`, `{}`).
-  * Whitespace stripping and standardized `'MOC': 5.00` menu entry with safe `.get(code, None)`.
-  * Safe float conversion with `try-except ValueError`, filtering of NaNs, infinities, and negative numbers, and graceful zero division avoidance.
-  * Delimiter presence check (`':' in item`), bounded splitting (`split(':', 1)`), key/value trimming, and empty key filtering.
-* **Verification Metrics:**
-  * **Hypothesis Test Suite:** 6 property-based test suites running hundreds of generated test cases per property — **100% Passed (0 failures, 0 crashes)**.
-* **Deliverables:** High-resolution terminal screenshots ([Original Buggy Output](./Lab_7/L6_L7_03_coffee_shop_order/Lab%207/Lab7_Original_Buggy_Output.png), [Fuzz Failures](./Lab_7/L6_L7_03_coffee_shop_order/Lab%207/Lab7_Fuzz_Test_Failures.png), [Fixed App Output](./Lab_7/L6_L7_03_coffee_shop_order/Lab%207/Lab7_Fixed_Application_Output.png), [Passing Fuzz Tests](./Lab_7/L6_L7_03_coffee_shop_order/Lab%207/Lab7_Passing_Fuzz_Tests.png)) and official submission report ([`PES2UG24CS310_Lab_7.pdf`](./Lab_7/PES2UG24CS310_Lab_7.pdf)).
-* **Execution:**
-  ```bash
-  cd "Lab_7/L6_L7_03_coffee_shop_order/Lab 7"
-  pytest test_processor.py -v
-  python processor.py
-  ```
+## Folder Structure
 
----
-
-### 5. [Vibe Coding: Fishing Game & End-to-End Testing](./vibe_coding)
-* **Objective:** Build an interactive 2D simulation game in Pygame paired with automated unit tests and end-to-end (E2E) gameplay recording verification.
-* **Key Features:** Real-time casting physics, hook collision logic, fish spawning cycles, dynamic score multipliers, and game-over state transitions.
-* **Automated Testing:** Test suite covering game engine cycles, hook kinematics, and E2E gameplay runs with screenshot captures and gameplay video recordings.
-* **Execution:**
-  ```bash
-  cd vibe_coding
-  pytest tests/
-  python fishing/main.py
-  ```
-
----
-
-## 🛠️ Environment & Prerequisites
-
-To execute test suites and tools across all laboratories:
-
-```bash
-# Clone the repository
-git clone git@github.com:neelckr1/SE-Lab.git
-cd SE-Lab
-
-# Create and activate virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
-
-# Install dependencies
-pip install pytest coverage pylint bandit flake8 pillow reportlab pygame
+```
+PESU-SE-Labs/
+├── Lab1-L2-Campus-Placement-Pipeline/
+│   ├── ES2UG24CS310-NEEL-LAB1.pdf
+│   ├── Lab2_NeelChandrakar_PES2UG24CS310.pdf
+│   └── README.md
+├── Lab3-Campus-Placement-Architecture/
+│   ├── Lab_3_Architecture_Student_handout.pdf
+│   ├── PES2UG24CS310_Lab_3.pdf
+│   └── README.md
+├── Lab4-Fishing-Game/
+│   ├── game/
+│   │   ├── catch.py
+│   │   ├── fish.py
+│   │   ├── game_engine.py
+│   │   ├── hook.py
+│   │   └── renderer.py
+│   ├── tests/
+│   ├── e2e_screenshots/
+│   ├── videos/
+│   ├── e2e_game_test.py
+│   ├── main.py
+│   ├── pytest.ini
+│   ├── record_gameplay_videos.py
+│   ├── requirements.txt
+│   └── README.md
+├── Lab5-Energy-Tariff/
+│   ├── energy_system.py
+│   ├── meters.json
+│   ├── pylint_report.txt
+│   ├── bandit_report.txt
+│   ├── flake8_report.txt
+│   ├── reflection.md
+│   ├── issues.md
+│   ├── generate_lab5_pdf.py
+│   ├── PES2UG24CS310_Lab_5.pdf
+│   ├── Lab_5_Static_Code_Analysis_Student_handout.docx
+│   └── README.md
+├── Lab6-L7-Coffee-Shop-Order/
+│   ├── LAB6/
+│   │   ├── coffee_shop_order.py
+│   │   ├── test_coffee_shop.py
+│   │   ├── CodeCoverageTest_coffee_shop_order.py
+│   │   ├── BranchCoverageTest_coffee_shop_order.py
+│   │   ├── code_coverage_report.png
+│   │   ├── branch_coverage_report.png
+│   │   ├── generate_terminal_screenshots.py
+│   │   ├── generate_lab6_pdf.py
+│   │   ├── PES2UG24CS310_Lab_6.pdf
+│   │   ├── Lab_6_Code_Branch_Coverage_Student_handout.pdf
+│   │   └── README.md
+│   ├── LAB7/
+│   │   ├── processor.py
+│   │   ├── test_processor.py
+│   │   ├── Lab7_Original_Buggy_Output.png
+│   │   ├── Lab7_Fuzz_Test_Failures.png
+│   │   ├── Lab7_Fixed_Application_Output.png
+│   │   ├── Lab7_Passing_Fuzz_Tests.png
+│   │   ├── generate_terminal_screenshots.py
+│   │   ├── generate_lab7_pdf.py
+│   │   ├── PES2UG24CS310_Lab_7.pdf
+│   │   ├── Lab_7_FuzzTesting_Student_Handout.pdf
+│   │   └── README.md
+│   ├── .gitignore
+│   └── README.md
+├── .gitignore
+└── README.md
 ```
 
 ---
 
-*Authored by **Neel Chandrakar** (`PES2UG24CS310`), Department of Computer Science & Engineering, PES University.*
+## Purpose
+
+This repository serves as a consolidated collection of my Software Engineering lab implementations, architectural designs, test suites, static analysis reports, and submission documents.
+
+**University:** PES University  
+**Department:** Computer Science and Engineering  
