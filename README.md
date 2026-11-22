@@ -17,6 +17,7 @@ This repository consolidates all laboratory assignments, practical implementatio
 | [`Lab_3/`](./Lab_3) | Software Architecture & System Design Analysis | — | Complete Architecture Review | [Lab 3 PDF](./Lab_3/PES2UG24CS310_Lab_3.pdf) |
 | [`Lab_5/`](./Lab_5) | Static Code Analysis & Security Hardening (`energy_system.py`) | [`L5_03_energy_tariff`](https://github.com/neelckr1/L5_03_energy_tariff) | **Pylint: 10.00/10**<br/>Bandit: 0 vulns<br/>Flake8: 0 issues | [Lab 5 PDF](./Lab_5/PES2UG24CS310_Lab_5.pdf) |
 | [`Lab_6/`](./Lab_6) | Code & Branch Coverage Analysis (`coffee_shop_order.py`) | [`L6_L7_03_coffee_shop_order`](https://github.com/neelckr1/L6_L7_03_coffee_shop_order) | **100% Line Coverage**<br/>**100% Branch Coverage** (38/38) | [Lab 6 PDF](./Lab_6/PES2UG24CS310_Lab_6.pdf) |
+| [`Lab_7/`](./Lab_7) | Fuzzing for Input Validation Bugs (`processor.py`) | [`L6_L7_03_coffee_shop_order`](https://github.com/neelckr1/L6_L7_03_coffee_shop_order) | **Hypothesis Fuzzing: 100% Passed**<br/>0 Crashes / Exceptions | [Lab 7 PDF](./Lab_7/PES2UG24CS310_Lab_7.pdf) |
 | [`vibe_coding/`](./vibe_coding) | Automated Game Engine & End-to-End Testing | [`vibe_coding`](https://github.com/neelckr1/vibe_coding) | 100% Unit + E2E Tests Passing | [Vibe Coding README](./vibe_coding/README.md) |
 
 ---
@@ -71,7 +72,31 @@ This repository consolidates all laboratory assignments, practical implementatio
 
 ---
 
-### 4. [Vibe Coding: Fishing Game & End-to-End Testing](./vibe_coding)
+### 4. [Lab 7: Fuzzing for Input Validation Bugs (`processor.py`)](./Lab_7)
+* **Objective:** Explore fuzz testing as a dynamic testing, security, and quality assurance technique using Python's **Hypothesis** property-based fuzzing framework to uncover and remediate unhandled exceptions and crashes in `processor.py`.
+* **Application Overview:** An order processing component handling drink code prefix lookup, average espresso shot cost calculation from CSV strings, and semicolon-delimited key:value order modifier specifications.
+* **Vulnerabilities Discovered via Hypothesis:**
+  * **`lookup_drink_code`**: `AttributeError` when given `None`, `KeyError` when given empty string `""` or unrecognized codes, and casing defect where `'MOc'` existed in dictionary while input was normalized to `'MOC'` (triggering `KeyError: 'MOC'`).
+  * **`calculate_average_shot_cost`**: `AttributeError` on `None`, `ValueError` attempting `float()` conversion on non-numeric or empty string tokens, and `ZeroDivisionError` when the price list contains no valid numbers.
+  * **`parse_order_modifiers`**: `AttributeError` on `None`, `ValueError` unpack failure (`expected 2, got 1`) on tokens missing `:` (e.g. empty strings or raw labels), and `ValueError` (`expected 2, got 3`) on tokens with multiple colons.
+* **Defensive Hardening Implemented:**
+  * Type guards checking `isinstance(s, str)` across all endpoints with neutral fallbacks (`None`, `0.0`, `{}`).
+  * Whitespace stripping and standardized `'MOC': 5.00` menu entry with safe `.get(code, None)`.
+  * Safe float conversion with `try-except ValueError`, filtering of NaNs, infinities, and negative numbers, and graceful zero division avoidance.
+  * Delimiter presence check (`':' in item`), bounded splitting (`split(':', 1)`), key/value trimming, and empty key filtering.
+* **Verification Metrics:**
+  * **Hypothesis Test Suite:** 6 property-based test suites running hundreds of generated test cases per property — **100% Passed (0 failures, 0 crashes)**.
+* **Deliverables:** High-resolution terminal screenshots ([Original Buggy Output](./Lab_7/L6_L7_03_coffee_shop_order/Lab%207/Lab7_Original_Buggy_Output.png), [Fuzz Failures](./Lab_7/L6_L7_03_coffee_shop_order/Lab%207/Lab7_Fuzz_Test_Failures.png), [Fixed App Output](./Lab_7/L6_L7_03_coffee_shop_order/Lab%207/Lab7_Fixed_Application_Output.png), [Passing Fuzz Tests](./Lab_7/L6_L7_03_coffee_shop_order/Lab%207/Lab7_Passing_Fuzz_Tests.png)) and official submission report ([`PES2UG24CS310_Lab_7.pdf`](./Lab_7/PES2UG24CS310_Lab_7.pdf)).
+* **Execution:**
+  ```bash
+  cd "Lab_7/L6_L7_03_coffee_shop_order/Lab 7"
+  pytest test_processor.py -v
+  python processor.py
+  ```
+
+---
+
+### 5. [Vibe Coding: Fishing Game & End-to-End Testing](./vibe_coding)
 * **Objective:** Build an interactive 2D simulation game in Pygame paired with automated unit tests and end-to-end (E2E) gameplay recording verification.
 * **Key Features:** Real-time casting physics, hook collision logic, fish spawning cycles, dynamic score multipliers, and game-over state transitions.
 * **Automated Testing:** Test suite covering game engine cycles, hook kinematics, and E2E gameplay runs with screenshot captures and gameplay video recordings.
